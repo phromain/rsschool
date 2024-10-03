@@ -1,0 +1,25 @@
+<app-header></app-header>
+<div class="container">
+    <ng-container *ngIf="currentStep === 0">
+        <app-qcm-social (next)="onNext()" (previous)="onPrevious()"></app-qcm-social>
+    </ng-container>
+    <ng-container *ngIf="currentStep === 1">
+        <app-qcm-envi (next)="onNext()" (previous)="onPrevious()"></app-qcm-envi>
+    </ng-container>
+    <ng-container *ngIf="currentStep === 2">
+        <app-qcm-eco (next)="onNext()" (previous)="onPrevious()"></app-qcm-eco>
+    </ng-container>
+    <ng-container *ngIf="currentStep === 3">
+        <app-qcm-local (next)="onNext()" (previous)="onPrevious()"></app-qcm-local>
+    </ng-container>
+    <ng-container *ngIf="currentStep === 4">
+        <app-qcm-gouv (next)="onNext()" (previous)="onPrevious()"></app-qcm-gouv>
+    </ng-container>
+    <ng-container *ngIf="currentStep === 5">
+        <app-qcm-com (next)="onNext()" (previous)="onPrevious()"></app-qcm-com>
+    </ng-container>
+    <ng-container *ngIf="currentStep === 6">
+        <app-qcm-result></app-qcm-result>
+    </ng-container>
+</div>
+<app-footer></app-footer>

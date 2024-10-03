@@ -1,0 +1,20 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-6">
+      <p><a class="btn btn-lg btn-primary" href="#" data-bs-toggle="modal" data-bs-target="#exampleModal">Télécharger le rapport</a></p>
+      <h5>Moyenne par catégorie:</h5>
+      <p>Social: {{ averages['social'] }}</p>
+      <p>Environnement: {{ averages['env'] }}</p>
+      <p>Économique: {{ averages['eco'] }}</p>
+      <p>Local: {{ averages['local'] }}</p>
+      <p>Gouvernance: {{ averages['gouv'] }}</p>
+      <p>Communication: {{ averages['com'] }}</p>
+      <h5 class="mt-5">Moyenne Globale: {{ globalAverage | number:'1.2-2' }}</h5>
+      <img class="h-20 w-auto" [src]="rseImage">
+
+    </div>
+    <div class="col-md-6 d-flex flex-column align-items-center">
+      <canvas id="radarChart" style="width: 100%; height: auto;"></canvas>
+    </div>
+  </div>
+</div>

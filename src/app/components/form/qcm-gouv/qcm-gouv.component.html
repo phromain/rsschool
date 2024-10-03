@@ -1,0 +1,65 @@
+<div [formGroup]="formGouv">
+    <h3 class="text-center">Gouvernance</h3>
+    <p class="mt-3">Notation:</p>
+    <app-notation></app-notation>
+
+    <p class="mt-5">L’établissement a une mission qui intègre la responsabilité sociale et l’engagement envers la communauté.
+        <i class="bi bi-info-circle" matTooltip="Mise en place d’une charte RSE clairement affichée dans l'établissement et intégrée dans la stratégie globale."></i> 
+    </p>
+    <div class="mt-3">
+        <mat-form-field>
+            <mat-select formControlName="qcm1">
+                <mat-option value="">Evaluation</mat-option>
+                <mat-option *ngFor="let note of notes" [value]="note.value">{{ note.label }}</mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+    <p>Des politiques sont mises en place pour assurer la transparence, l’éthique et le respect de chaque individu. 
+        <i class="bi bi-info-circle" matTooltip="Mise en place d’un code d'éthique publié, accès public aux comptes et processus de décision."></i> 
+    </p>
+    <div class="mt-3">
+        <mat-form-field>
+            <mat-select formControlName="qcm2">
+                <mat-option value="">Evaluation</mat-option>
+                <mat-option *ngFor="let note of notes" [value]="note.value">{{ note.label }}</mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+    <p>Les parties prenantes, y compris les étudiants, enseignants, personnel et partenaires externes, sont impliquées dans les décisions.
+        <i class="bi bi-info-circle" matTooltip="Créer des conseils consultatifs composés de représentants de chaque partie prenante."></i> 
+    </p>
+    <div class="mt-3">
+        <mat-form-field>
+            <mat-select formControlName="qcm3">
+                <mat-option value="">Evaluation</mat-option>
+                <mat-option *ngFor="let note of notes" [value]="note.value">{{ note.label }}</mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+    <p>Des consultations régulières, telles que des enquêtes ou conseils, sont organisées pour recueillir l’avis des étudiants et améliorer les processus.
+        <i class="bi bi-info-circle" matTooltip="Enquêtes semestrielles de satisfaction des étudiants et enseignants."></i>
+    </p>
+    <div class="mt-3">
+        <mat-form-field>
+            <mat-select formControlName="qcm4">
+                <mat-option value="">Evaluation</mat-option>
+                <mat-option *ngFor="let note of notes" [value]="note.value">{{ note.label }}</mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+    <p>Des actions sont mises en place pour évaluer l’impact des décisions sur les plans social, économique et environnemental.
+        <i class="bi bi-info-circle" matTooltip="Bilan annuel et amélioration continue "></i> 
+    </p>
+    <div class="mt-3">
+        <mat-form-field>
+            <mat-select formControlName="qcm5">
+                <mat-option value="">Evaluation</mat-option>
+                <mat-option *ngFor="let note of notes" [value]="note.value">{{ note.label }}</mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+    <div class="mt-auto d-flex justify-content-center mt-3">
+        <button mat-flat-button color="accent" (click)="onPrevious()">Retour</button>
+        <button mat-flat-button color="accent"  (click)="onNext()">Suivant</button>
+    </div>
+</div>
