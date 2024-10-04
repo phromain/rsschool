@@ -1,13 +1,14 @@
-import {Component, EventEmitter, Output } from '@angular/core';
-import {FormGroup, FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {MatInputModule} from '@angular/material/input';
-import {MatSelectModule} from '@angular/material/select';
-import {MatFormFieldModule} from '@angular/material/form-field';
-import {FormBuilder } from '@angular/forms';
-import {MatTooltipModule } from '@angular/material/tooltip';
-import {NgFor} from "@angular/common";
+import { Component, EventEmitter, Output } from '@angular/core';
+import { FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { FormBuilder } from '@angular/forms';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { NgFor } from "@angular/common";
 import { QcmService } from '../../../service/qcm.service';
 import { NotationComponent } from "../../notation/notation.component";
+import { AlertService } from '../../../service/alert.service';
 
 @Component({
   selector: 'app-qcm-local',
@@ -30,7 +31,7 @@ export class QcmLocalComponent {
     { value: null, label: 'NA' },
   ];
 
-  constructor(private fb: FormBuilder, private qcmService: QcmService) {
+  constructor(private fb: FormBuilder, private qcmService: QcmService, private alertService: AlertService) {
     this.formLocal = this.fb.group({
       qcm1: [''],
       qcm2: [''],
@@ -40,17 +41,32 @@ export class QcmLocalComponent {
     });
   }
 
-  onNext() {
-    const responses = [
+  validateForm(): boolean {
+    const values = [
       this.formLocal.value.qcm1,
       this.formLocal.value.qcm2,
       this.formLocal.value.qcm3,
       this.formLocal.value.qcm4,
       this.formLocal.value.qcm5
-    ].map(value => value === '' ? null : value);
+    ];
+    return values.every(value => value !== '');
+  }
 
-    this.qcmService.setResponses('local', responses);
-    this.next.emit();
+  onNext() {
+    if (this.validateForm()) {
+      const responses = [
+        this.formLocal.value.qcm1,
+        this.formLocal.value.qcm2,
+        this.formLocal.value.qcm3,
+        this.formLocal.value.qcm4,
+        this.formLocal.value.qcm5
+      ].map(value => value === '' ? null : value);
+
+      this.qcmService.setResponses('local', responses);
+      this.next.emit();
+    } else {
+      this.alertService.showAlert('Veuillez remplir toutes les questions avant de continuer.');
+    }
   }
 
   onPrevious() {

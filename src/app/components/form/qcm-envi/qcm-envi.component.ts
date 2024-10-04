@@ -1,13 +1,14 @@
-import {Component, EventEmitter, Output } from '@angular/core';
-import {FormGroup, FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {MatInputModule} from '@angular/material/input';
-import {MatSelectModule} from '@angular/material/select';
-import {MatFormFieldModule} from '@angular/material/form-field';
-import {FormBuilder } from '@angular/forms';
-import {MatTooltipModule } from '@angular/material/tooltip';
-import {NgFor} from "@angular/common";
+import { Component, EventEmitter, Output } from '@angular/core';
+import { FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { FormBuilder } from '@angular/forms';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { NgFor } from "@angular/common";
 import { QcmService } from '../../../service/qcm.service';
 import { NotationComponent } from "../../notation/notation.component";
+import { AlertService } from '../../../service/alert.service';
 
 @Component({
   selector: 'app-qcm-envi',
@@ -30,7 +31,7 @@ export class QcmEnviComponent {
     { value: null, label: 'NA' },
   ];
 
-  constructor(private fb: FormBuilder, private qcmService: QcmService) {
+  constructor(private fb: FormBuilder, private qcmService: QcmService, private alertService: AlertService) {
     this.formEnv = this.fb.group({
       qcm1: [''],
       qcm2: [''],
@@ -40,17 +41,32 @@ export class QcmEnviComponent {
     });
   }
 
-  onNext() {
-    const responses = [
+  validateForm(): boolean {
+    const values = [
       this.formEnv.value.qcm1,
       this.formEnv.value.qcm2,
       this.formEnv.value.qcm3,
       this.formEnv.value.qcm4,
       this.formEnv.value.qcm5
-    ].map(value => value === '' ? null : value);
+    ];
+    return values.every(value => value !== '');
+  }
 
-    this.qcmService.setResponses('env', responses);
-    this.next.emit();
+  onNext() {
+    if (this.validateForm()) {
+      const responses = [
+        this.formEnv.value.qcm1,
+        this.formEnv.value.qcm2,
+        this.formEnv.value.qcm3,
+        this.formEnv.value.qcm4,
+        this.formEnv.value.qcm5
+      ].map(value => value === '' ? null : value);
+
+      this.qcmService.setResponses('env', responses);
+      this.next.emit();
+    } else {
+      this.alertService.showAlert('Veuillez remplir toutes les questions avant de continuer.');
+    }
   }
 
   onPrevious() {

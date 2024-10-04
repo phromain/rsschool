@@ -8,6 +8,7 @@ import {MatTooltipModule } from '@angular/material/tooltip';
 import {NgFor} from "@angular/common";
 import { QcmService } from '../../../service/qcm.service';
 import { NotationComponent } from "../../notation/notation.component";
+import { AlertService } from '../../../service/alert.service';
 
 @Component({
   selector: 'app-qcm-social',
@@ -28,7 +29,7 @@ export class QcmSocialComponent {
     { value: null, label: 'NA' },
   ];
 
-  constructor(private fb: FormBuilder, private qcmService: QcmService) {
+  constructor(private fb: FormBuilder, private qcmService: QcmService, private alertService: AlertService) {
     this.formSocial = this.fb.group({
       qcm1: [''],
       qcm2: [''],
@@ -39,16 +40,31 @@ export class QcmSocialComponent {
   }
 
 
-  onNext() {
-    const responses = [
+  validateForm(): boolean {
+    const values = [
       this.formSocial.value.qcm1,
       this.formSocial.value.qcm2,
       this.formSocial.value.qcm3,
       this.formSocial.value.qcm4,
       this.formSocial.value.qcm5
-    ].map(value => value === '' ? null : value);
+    ];
+    return values.every(value => value !== '');
+  }
 
-    this.qcmService.setResponses('social', responses);
-    this.next.emit();
+  onNext() {
+    if (this.validateForm()) {
+      const responses = [
+        this.formSocial.value.qcm1,
+        this.formSocial.value.qcm2,
+        this.formSocial.value.qcm3,
+        this.formSocial.value.qcm4,
+        this.formSocial.value.qcm5
+      ].map(value => value === '' ? null : value);
+
+      this.qcmService.setResponses('social', responses);
+      this.next.emit();
+    } else {
+      this.alertService.showAlert('Veuillez remplir toutes les questions avant de continuer.');
+    }
   }
 }
