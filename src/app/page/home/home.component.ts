@@ -11,11 +11,12 @@ import { MarketingComponent } from "../../components/marketing/marketing.compone
 import { FeatureComponent } from "../../components/feature/feature.component";
 import { AccordeonComponent } from "../../components/accordeon/accordeon.component";
 import { ContactComponent } from "../../components/contact/contact.component";
+import { NewsletterComponent } from "../../components/newsletter/newsletter.component";
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [HeaderComponent, FooterComponent, QcmSocialComponent, QcmEcoComponent, QcmEnviComponent, QcmGouvComponent, QcmLocalComponent, CarouselComponent, MarketingComponent, FeatureComponent, AccordeonComponent, ContactComponent],
+  imports: [HeaderComponent, FooterComponent, QcmSocialComponent, QcmEcoComponent, QcmEnviComponent, QcmGouvComponent, QcmLocalComponent, CarouselComponent, MarketingComponent, FeatureComponent, AccordeonComponent, ContactComponent, NewsletterComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
